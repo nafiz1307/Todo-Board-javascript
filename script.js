@@ -32,10 +32,10 @@ function getSavedColumns() {
     completeListArray = JSON.parse(localStorage.completeItems);
     onHoldListArray = JSON.parse(localStorage.onHoldItems);
   } else {
-    backlogListArray = ["Release the course", "Sit back and relax"];
+    backlogListArray = ["Demo Task", "Go Office and work"];
     progressListArray = ["Work on projects", "Listen to music"];
-    completeListArray = ["Being cool", "Getting stuff done"];
-    onHoldListArray = ["Being uncool"];
+    completeListArray = ["Do a Project", "Hello World"];
+    onHoldListArray = ["Being Productive"];
   }
 }
 getSavedColumns();
@@ -130,16 +130,19 @@ function updateDOM() {
 //update, delete
 function updateItem(id, column) {
   const selectedArray = listArrays[column];
-  console.log(selectedArray);
-  const selectedColumnEl = listColumns[column].children;
-  console.log(selectedColumnEl[id].textContent);
+const selectedColumnEl = listColumns[column].children;
+if ( !dragging){
   if (!selectedColumnEl[id].textContent) {
     delete selectedArray[id];
     console.log(selectedArray);
-  }else{
-    selectedArray[id]= selectedColumnEl[id].textContent;
+  } else {
+    selectedArray[id] = selectedColumnEl[id].textContent;
   }
   updateDOM();
+}
+
+  
+  
 }
 
 //input box
@@ -193,7 +196,7 @@ function rebuildArrays() {
 function drag(e) {
   draggedItem = e.target;
   // console.log("draggeditem:", draggedItem);
-  dragging= true;
+  dragging = true;
 }
 
 //Allowed Drops
@@ -214,7 +217,7 @@ function drop(e) {
 
   const parent = listColumns[currentColumn];
   parent.appendChild(draggedItem);
-  dragging= false;
+  dragging = false;
   rebuildArrays();
 }
 
